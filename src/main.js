@@ -5,6 +5,7 @@ import DashboardPlugin from "./material-dashboard";
 // Plugins
 import App from "./App.vue";
 import Chartist from "chartist";
+import axios from './axios'
 
 // router setup
 import routes from "./routes/routes";
@@ -30,6 +31,7 @@ Object.defineProperty(Vue.prototype, "$Chartist", {
 new Vue({
   el: "#app",
   render: h => h(App),
+  axios,
   router,
   data: {
     Chartist: Chartist

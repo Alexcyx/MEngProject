@@ -25,9 +25,7 @@
                     :key="item"
                     :label="item"
                     :value="item"
-                  >
-                    {{ item }}
-                  </md-option>
+                  >{{ item }}</md-option>
                 </md-select>
               </md-field>
 
@@ -39,20 +37,18 @@
                   style="width: 200px"
                   placeholder="Search by Name"
                   v-model="searchQuery"
-                >
-                </md-input>
+                ></md-input>
               </md-field>
             </md-table-toolbar>
 
             <md-table-row slot="md-table-row" slot-scope="{ item }">
-              <md-table-cell v-for="(value, label) in item" 
-                            :key="label" 
-                            :md-sort-by="label"
-                            :md-label="label.slice(0, 1).toUpperCase() + label.slice(1)">
-                {{value}}
-              </md-table-cell>
-
-              <md-table-cell md-label="Actions">
+              <md-table-cell
+                v-for="(value, label) in item"
+                :key="label"
+                :md-sort-by="label"
+                :md-label="label.slice(0, 1).toUpperCase() + label.slice(1)"
+              >{{value}}</md-table-cell>
+              <md-table-cell md-label="Actions" v-if="show">
                 <md-button
                   class="md-just-icon md-warning md-simple icon"
                   @click.native="handleEdit(item)"
@@ -68,21 +64,17 @@
               </md-table-cell>
             </md-table-row>
           </md-table>
-
         </md-card-content>
         <md-card-actions md-alignment="space-between">
-          <div class="">
-            <p class="card-category">
-              Showing {{ from + 1 }} to {{ to }} of {{ total }} entries
-            </p>
+          <div class>
+            <p class="card-category">Showing {{ from + 1 }} to {{ to }} of {{ total }} entries</p>
           </div>
           <pagination
             class="pagination-no-border pagination-success"
             v-model="pagination.currentPage"
             :per-page="pagination.perPage"
             :total="total"
-          >
-          </pagination>
+          ></pagination>
         </md-card-actions>
       </md-card>
     </div>
@@ -104,6 +96,10 @@ export default {
     table: {
       type: Array,
       required: true
+    },
+    show: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -154,30 +150,30 @@ export default {
       return value.sort((a, b) => {
         const sortBy = this.currentSort;
         if (this.currentSortOrder === "asc") {
-          if (typeof(a[sortBy]) == 'number') {
+          if (typeof a[sortBy] == "number") {
             return a[sortBy] - b[sortBy];
           } else {
             return a[sortBy].localeCompare(b[sortBy]);
           }
         }
-        if (typeof(a[sortBy]) == 'number') {
-            return b[sortBy] - a[sortBy];
-          } else {
-            return b[sortBy].localeCompare(a[sortBy]);
-          }
+        if (typeof a[sortBy] == "number") {
+          return b[sortBy] - a[sortBy];
+        } else {
+          return b[sortBy].localeCompare(a[sortBy]);
+        }
       });
     },
     handleEdit(item) {
-      this.$emit('goto', item.id);
+      this.$emit("goto", item.id);
     },
     handleDelete(item) {
-      
+      this.$emit("delete", item.id);
     }
   },
   mounted() {
     // Fuse search initialization.
     this.fuseSearch = new Fuse(this.tableData, {
-      keys: ['name'],
+      keys: ["name"],
       threshold: 0.3
     });
   },
@@ -199,12 +195,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.md-card .md-card-actions{
+.md-card .md-card-actions {
   border: 0;
   margin-left: 20px;
   margin-right: 20px;
 }
-.icon{
+.icon {
   margin-left: 5px;
   margin-right: 5px;
 }

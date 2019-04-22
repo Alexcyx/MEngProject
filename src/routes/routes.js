@@ -5,6 +5,9 @@ import AuthLayout from "@/pages/Dashboard/Pages/AuthLayout.vue";
 import Dashboard from "@/pages/Dashboard/Dashboard.vue";
 
 // Pages
+import PersonInfo from "@/pages/Dashboard/PersonInfoPage.vue";
+import DataSetInfo from "@/pages/Dashboard/DataSetInfo.vue";
+import MovementDetail from "@/pages/Dashboard/BodyMovementDetail.vue";
 import User from "@/pages/Dashboard/Pages/UserProfile.vue";
 import Pricing from "@/pages/Dashboard/Pages/Pricing.vue";
 import TimeLine from "@/pages/Dashboard/Pages/TimeLinePage.vue";
@@ -259,6 +262,21 @@ const routes = [
         path: "widgets",
         name: "Widgets",
         components: { default: Widgets }
+      },
+      {
+        path: "/dataset_info",
+        name: "Dataset Info",
+        component: DataSetInfo
+      },
+      {
+        path: "/person_info",
+        name: "Badge Info",
+        component: PersonInfo
+      },
+      {
+        path: "/movement_detail",
+        name: "Body Movement Detail",
+        component: MovementDetail
       }
     ]
   }
